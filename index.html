@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#ff6b6b">
+    <title>Amjad Digital Katalog - Restoranınızı Dijital Dünyada Parlat</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-utensils"></i>
+                    <span>Amjad Digital Katalog</span>
+                </div>
+                <ul class="nav-menu">
+                    <li class="language-switcher">
+                        <select id="language-select">
+                            <option value="tr">Türkçe</option>
+                            <option value="en">English</option>
+                            <option value="ar">عربي</option>
+                        </select>
+                    </li>
+                    <li><a href="#home" data-translate="home">Ana Sayfa</a></li>
+                    <li><a href="#features" data-translate="features">Özellikler</a></li>
+                    <li><a href="#customers" data-translate="customers">Müşteriler</a></li>
+                    <li><a href="#pricing" data-translate="pricing">Fiyatlandırma</a></li>
+                    <li><a href="#contact" data-translate="contact">İletişim</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 data-translate="hero-title">Restoranınızı Dijital Dünyada Parlat</h1>
+                    <p data-translate="hero-subtitle">QR kodlu elektronik menü ile yemek deneyiminde devrim yaratın. Kağıt menülere veda edin, kolay ve modern dijital deneyime merhaba deyin.</p>
+                    <div class="hero-buttons">
+                        <a href="#pricing" class="btn btn-primary" data-translate="get-started">Hemen Başla</a>
+                        <a href="#features" class="btn btn-secondary" data-translate="learn-more">Daha Fazla Bilgi</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="phone-mockup">
+                        <i class="fas fa-mobile-alt"></i>
+                        <div class="qr-code">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2 data-translate="main-features">Ana Özellikler</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <h3 data-translate="qr-access">QR Kod ile Erişim</h3>
+                        <p data-translate="qr-description">QR tarama ile dijital kataloğa kolay erişim</p>
+                        <ul>
+                            <li data-translate="instant-menu">Anında menü erişimi</li>
+                            <li data-translate="no-app-required">Uygulama yükleme gerektirmez</li>
+                            <li data-translate="works-all-phones">Tüm akıllı telefonlarda çalışır</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <h3 data-translate="multilingual">Çoklu Dil</h3>
+                        <p data-translate="multilingual-description">Çoklu dil desteği</p>
+                        <ul>
+                            <li data-translate="multi-language-support">Çoklu dil desteği</li>
+                            <li data-translate="easy-language-switch">Kolay dil değişimi</li>
+                            <li data-translate="auto-detection">Otomatik algılama</li>
+                            <li data-translate="custom-translations">Özel çeviriler</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h3 data-translate="order-system">Sipariş Sistemi</h3>
+                        <p data-translate="order-description">Uygulama veya WhatsApp üzerinden entegre siparişler</p>
+                        <ul>
+                            <li data-translate="multichannel-orders">Çok kanallı siparişler</li>
+                            <li data-translate="shopping-cart">Alışveriş sepeti özelliği</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="customers" class="customers">
+            <div class="container">
+                <h2 data-translate="our-customers">Müşterilerimiz</h2>
+                <div class="customers-grid">
+                    <div class="customer-card">
+                        <div class="customer-logo">
+                            <i class="fas fa-mosque"></i>
+                        </div>
+                        <h3>Al Madinatyn Restoranı</h3>
+                        <a href="restaurants/Al Madinatyn Restorani/index.html" class="btn btn-outline" data-translate="visit-site">Siteyi Ziyaret Et</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="pricing">
+            <div class="container">
+                <h2 data-translate="pricing-plans">Fiyatlandırma Planları</h2>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <h3 data-translate="basic-plan">Temel Paket</h3>
+                        <div class="price">$100<span data-translate="per-year">/yıl</span></div>
+                        <p data-translate="basic-description">Sadece ürün görüntüleme paketi</p>
+                        <ul class="features-list">
+                            <li><i class="fas fa-check"></i> <span data-translate="products-count">50 Ürün sayısı</span></li>
+                            <li><i class="fas fa-check"></i> <span data-translate="categories-count">4 Kategori sayısı</span></li>
+                            <li><i class="fas fa-check"></i> <span data-translate="shopping-cart">Alışveriş sepeti</span></li>
+                            <li><i class="fas fa-check"></i> <span data-translate="whatsapp-orders">WhatsApp siparişleri</span></li>
+                            <li><i class="fas fa-check"></i> <span data-translate="catalog-customization">Katalog renk özelleştirme</span></li>
+                            <li><i class="fas fa-check"></i> <span data-translate="barcode">Barkod</span></li>
+                            <li><i class="fas fa-times"></i> <span data-translate="supported-languages">1 Desteklenen dil sayısı</span></li>
+                            <li><i class="fas fa-times"></i> <span data-translate="supported-branches">1 Desteklenen şube sayısı</span></li>
+                            <li><i class="fas fa-times"></i> <span data-translate="coupons">Kuponlar</span></li>
+                            <li><i class="fas fa-times"></i> <span data-translate="dark-light-mode">Koyu/Açık mod geçişi</span></li>
+                            <li><i class="fas fa-times"></i> <span data-translate="social-sharing">Sosyal medya bağlantıları paylaşma</span></li>
+                            <li><i class="fas fa-check"></i> <span data-translate="services">Hizmetler (Sunucu + Domain)</span></li>
+                        </ul>
+                        <a href="#" class="btn btn-primary demo-btn" data-plan="basic" data-translate="choose-plan">Paketi Seç</a>
+                    </div>
+                    <div class="pricing-card featured">
+                        <h3 data-translate="main-plan">Ana Paket</h3>
+                        <div class="price">$200<span data-translate="per-year">/yıl</span></div>
+                        <p data-translate="main-description">Siparişleri destekleyen paket</p>
+                        <ul class="features-list">
+                            <li><i class="fas fa-check"></i> <span data-translate="main-products-count">150 Ürün sayısı</span></li>
+                            <li><i class="fas fa-check"></i> <span data-translate="main-categories-count">16 Kategori sayısı</span></li>
+                            <li><i class="fas fa-check"></i> <span data-translate="main-supported-languages">4 Desteklenen dil sayısı</span></li>
+                            <li><i class="fas fa-check"></i> <span data-translate="main-supported-branches">2 Desteklenen şube sayısı</span></li>
+                            <li><i class="fas fa-check"></i> <span data-translate="shopping-cart">Alışveriş sepeti</span></li>
+                            <li><i class="fas fa-check"></i> <span data-translate="whatsapp-orders">WhatsApp siparişleri</span></li>
+                            <li><i class="fas fa-check"></i> <span data-translate="coupons">Kuponlar</span></li>
+                            <li><i class="fas fa-check"></i> <span data-translate="catalog-customization">Katalog renk özelleştirme</span></li>
+                            <li><i class="fas fa-check"></i> <span data-translate="dark-light-mode">Koyu/Açık mod geçişi</span></li>
+                            <li><i class="fas fa-check"></i> <span data-translate="social-sharing">Sosyal medya bağlantıları paylaşma</span></li>
+                            <li><i class="fas fa-check"></i> <span data-translate="barcode">Barkod</span></li>
+                            <li><i class="fas fa-check"></i> <span data-translate="services">Hizmetler (Sunucu + Domain)</span></li>
+                        </ul>
+                        <a href="#" class="btn btn-primary demo-btn" data-plan="main" data-translate="choose-plan">Paketi Seç</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 data-translate="contact-us">İletişim</h2>
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h3 data-translate="get-in-touch">Bizimle İletişim</h3>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+90 (538) 581 87 71</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>amjadhammad004@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <a href="https://wa.me/905385818771" target="_blank" data-translate="whatsapp-contact">WhatsApp ile İletişim</a>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <input type="text" data-translate-placeholder="restaurant-name" placeholder="Restoran Adı" required>
+                            <input type="email" data-translate-placeholder="email" placeholder="E-posta" required>
+                            <input type="tel" data-translate-placeholder="phone" placeholder="Telefon Numarası" required>
+                            <textarea data-translate-placeholder="message" placeholder="Mesaj" rows="5" required></textarea>
+                            <button type="submit" class="btn btn-primary" data-translate="send-message">Mesaj Gönder</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مطعم المدينتين  - قائمة الطعام</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --primary-dark: #2C2C2C;
+            --light-cream: #FDF8F0;
+            --warm-white: #FFFFFF;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --border-light: #E5E5E5;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+            --accent-green: #25D366;
+            --accent-red: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--light-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            direction: rtl;
+        }
+
+        body.english {
+            font-family: 'Roboto', sans-serif;
+            direction: ltr;
+        }
+
+        body.turkish {
+            font-family: 'Roboto', sans-serif;
+            direction: ltr;
+        }
+
+        /* Dark Mode Support */
+        body.dark-mode {
+            background: #1a1a1a;
+            color: #ffffff;
+            --light-cream: #1a1a1a;
+            --warm-white: #2d2d2d;
+            --text-dark: #ffffff;
+            --border-light: #444444;
+        }
+
+        body.dark-mode .navbar {
+            background: #0d0d0d !important;
+        }
+
+        body.dark-mode .menu-card {
+            background: #2d2d2d;
+            color: #ffffff;
+        }
+
+        body.dark-mode .cart-content {
+            background: #2d2d2d;
+            color: #ffffff;
+        }
+
+        /* Header Styles */
+        .navbar {
+            background: var(--primary-dark) !important;
+            box-shadow: 0 4px 20px var(--shadow-medium);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-gold) !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-gold) !important;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            position: relative;
+            display: inline-block;
+        }
+
+        .language-btn {
+            background: var(--primary-gold);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .language-btn:hover {
+            background: #b89129;
+            transform: translateY(-2px);
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px var(--shadow-light);
+            display: none;
+            z-index: 1000;
+            min-width: 150px;
+            margin-top: 0.5rem;
+        }
+
+        .language-dropdown.show {
+            display: block;
+        }
+
+        .language-option {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .language-option:hover {
+            background: var(--light-cream);
+        }
+
+        .language-option.active {
+            background: var(--primary-gold);
+            color: white;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--primary-gold);
+            color: var(--primary-gold);
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-gold);
+            color: white;
+        }
+
+        /* Category Filter Pills */
+        .category-filters {
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 2px solid var(--border-light);
+            color: var(--text-dark);
+            padding: 0.75rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-gold);
+            color: white;
+            border-color: var(--primary-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Menu Card Styles */
+        .menu-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px var(--shadow-light);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px var(--shadow-medium);
+        }
+
+        .menu-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart-btn {
+            background: var(--primary-gold);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .add-to-cart-btn:hover {
+            background: #b89129;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .add-to-cart-btn:active {
+            background: #967f21;
+            transform: translateY(0);
+        }
+
+        /* Floating Cart */
+        .floating-cart {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-gold);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .floating-cart:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.6);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent-red);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-modal.show {
+            display: flex;
+        }
+
+        .cart-content {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-btn {
+            background: var(--primary-gold);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .quantity-btn:hover {
+            background: #b89129;
+            transform: scale(1.1);
+        }
+
+        .quantity-btn:active {
+            background: #967f21;
+            transform: scale(0.95);
+        }
+
+        .whatsapp-btn {
+            background: var(--accent-green);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-btn:active {
+            background: #0d6b57;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-card {
+                margin-bottom: 1rem;
+            }
+            
+            .floating-cart {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            .cart-count {
+                width: 20px;
+                height: 20px;
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Grid Layout */
+        .menu-grid {
+            padding: 2rem 0;
+        }
+
+        /* Smooth Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hidden class for translations */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-mug-hot me-2"></i>
+                <span data-translate="restaurant_name">مطعم المدينتين</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+          
+                
+                <div class="d-flex align-items-center">
+                    <button class="theme-toggle me-2" onclick="toggleTheme()">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    
+                    <div class="language-switcher">
+                        <button class="language-btn" onclick="toggleLanguageDropdown()">
+                            <i class="fas fa-globe"></i>
+                            <span id="currentLanguage">العربية</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="language-dropdown" id="languageDropdown">
+                            <div class="language-option active" onclick="changeLanguage('ar')">
+                                <i class="fas fa-flag"></i>
+                                <span>العربية (Arabic)</span>
+                            </div>
+                            <div class="language-option" onclick="changeLanguage('en')">
+                                <i class="fas fa-flag"></i>
+                                <span>English</span>
+                            </div>
+                            <div class="language-option" onclick="changeLanguage('tr')">
+                                <i class="fas fa-flag"></i>
+                                <span>Türkçe (Turkish)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Category Filters -->
+    <div class="category-filters">
+        <div class="container">
+            <button class="filter-btn active" data-category="all">
+                <span data-translate="all_items">جميع الأطباق</span>
+            </button>
+            <button class="filter-btn" data-category="hot-drinks">
+                <span data-translate="hot_drinks">المشروبات الساخنة</span>
+            </button>
+            <button class="filter-btn" data-category="cold-drinks">
+                <span data-translate="cold_drinks">المشروبات الباردة</span>
+            </button>
+            <button class="filter-btn" data-category="sandwiches">
+                <span data-translate="sandwiches">السندويشات</span>
+            </button>
+            <button class="filter-btn" data-category="desserts">
+                <span data-translate="desserts">الحلويات</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Menu Items -->
+    <div class="container menu-grid">
+        <div class="row" id="menuItems">
+            <!-- Hot Drinks -->
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 menu-item fade-in" data-category="hot-drinks">
+                <div class="menu-card">
+                    <img src="Images/kark-01.png" alt="شاي كرك صغير" onerror="this.src='https://via.placeholder.com/300x200/D4AF37/FFFFFF?text=شاي+كرك'">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="small_karak">شاي كرك صغير</h5>
+                        <div class="card-price">15 TL</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('small_karak', 15)">
+                            <i class="fas fa-cart-plus me-2"></i>
+                            <span data-translate="add_to_cart">أضف إلى السلة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 menu-item fade-in" data-category="hot-drinks">
+                <div class="menu-card">
+                    <img src="Images/kark-01.png" alt="شاي كرك وسط" onerror="this.src='https://via.placeholder.com/300x200/D4AF37/FFFFFF?text=شاي+كرك+وسط'">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="medium_karak">شاي كرك وسط</h5>
+                        <div class="card-price">25 TL</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('medium_karak', 25)">
+                            <i class="fas fa-cart-plus me-2"></i>
+                            <span data-translate="add_to_cart">أضف إلى السلة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 menu-item fade-in" data-category="hot-drinks">
+                <div class="menu-card">
+                    <img src="Images/kark-01.png" alt="شاي كرك كبير" onerror="this.src='https://via.placeholder.com/300x200/D4AF37/FFFFFF?text=شاي+كرك+كبير'">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="large_karak">شاي كرك كبير</h5>
+                        <div class="card-price">35 TL</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('large_karak', 35)">
+                            <i class="fas fa-cart-plus me-2"></i>
+                            <span data-translate="add_to_cart">أضف إلى السلة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- More Hot Drinks -->
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 menu-item fade-in" data-category="hot-drinks">
+                <div class="menu-card">
+                    <img src="Images/kark-01 - Copy (2).png" alt="براد كرك" onerror="this.src='https://via.placeholder.com/300x200/D4AF37/FFFFFF?text=براد+كرك'">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="brad_karak">براد كرك</h5>
+                        <div class="card-price">120 TL</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('brad_karak', 120)">
+                            <i class="fas fa-cart-plus me-2"></i>
+                            <span data-translate="add_to_cart">أضف إلى السلة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 menu-item fade-in" data-category="hot-drinks">
+                <div class="menu-card">
+                    <img src="Images/kark-01 - Copy (5).png" alt="براد قهوة عربية" onerror="this.src='https://via.placeholder.com/300x200/8B4513/FFFFFF?text=براد+قهوة+عربية'">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="brad_arabic_coffee">براد قهوة عربية 1.5</h5>
+                        <div class="card-price">135 TL</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('brad_arabic_coffee', 135)">
+                            <i class="fas fa-cart-plus me-2"></i>
+                            <span data-translate="add_to_cart">أضف إلى السلة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 menu-item fade-in" data-category="hot-drinks">
+                <div class="menu-card">
+                    <img src="Images/kark-01 - Copy (15).png" alt="نسكافيه" onerror="this.src='https://via.placeholder.com/300x200/8B4513/FFFFFF?text=نسكافيه'">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="nescafe">نسكافيه</h5>
+                        <div class="card-price">18 TL</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('nescafe', 18)">
+                            <i class="fas fa-cart-plus me-2"></i>
+                            <span data-translate="add_to_cart">أضف إلى السلة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 menu-item fade-in" data-category="hot-drinks">
+                <div class="menu-card">
+                    <img src="Images/kark-01 - Copy (16).png" alt="هوت شوكليت كبير" onerror="this.src='https://via.placeholder.com/300x200/8B4513/FFFFFF?text=هوت+شوكليت+كبير'">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="hot_chocolate">هوت شوكليت كبير</h5>
+                        <div class="card-price">25 TL</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('hot_chocolate', 25)">
+                            <i class="fas fa-cart-plus me-2"></i>
+                            <span data-translate="add_to_cart">أضف إلى السلة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cold Drinks -->
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 menu-item fade-in" data-category="cold-drinks">
+                <div class="menu-card">
+                    <img src="Images/kark-01 - Copy (32).png" alt="عصير برتقال" onerror="this.src='https://via.placeholder.com/300x200/FFA500/FFFFFF?text=عصير+برتقال'">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="orange_juice">عصير برتقال طازج</h5>
+                        <div class="card-price">35 TL</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('orange_juice', 35)">
+                            <i class="fas fa-cart-plus me-2"></i>
+                            <span data-translate="add_to_cart">أضف إلى السلة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 menu-item fade-in" data-category="cold-drinks">
+                <div class="menu-card">
+                    <img src="Images/kark-01 - Copy (26).png" alt="عصير مانجو" onerror="this.src='https://via.placeholder.com/300x200/FF6347/FFFFFF?text=عصير+مانجو'">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="mango_juice">عصير مانجو طبيعي</h5>
+                        <div class="card-price">45 TL</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('mango_juice', 45)">
+                            <i class="fas fa-cart-plus me-2"></i>
+                            <span data-translate="add_to_cart">أضف إلى السلة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 menu-item fade-in" data-category="cold-drinks">
+                <div class="menu-card">
+                    <img src="Images/kark-01 - Copy (25).png" alt="ماء" onerror="this.src='https://via.placeholder.com/300x200/87CEEB/FFFFFF?text=ماء'">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="water">ماء</h5>
+                        <div class="card-price">6 TL</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('water', 6)">
+                            <i class="fas fa-cart-plus me-2"></i>
+                            <span data-translate="add_to_cart">أضف إلى السلة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 menu-item fade-in" data-category="cold-drinks">
+                <div class="menu-card">
+                    <img src="Images/kark-01 - Copy (27).png" alt="ليموناتا" onerror="this.src='https://via.placeholder.com/300x200/FFFF00/000000?text=ليموناتا'">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="lemonade">ليموناتا</h5>
+                        <div class="card-price">25 TL</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('lemonade', 25)">
+                            <i class="fas fa-cart-plus me-2"></i>
+                            <span data-translate="add_to_cart">أضف إلى السلة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sandwiches -->
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 menu-item fade-in" data-category="sandwiches">
+                <div class="menu-card">
+                    <img src="Images/kark-01 - Copy.png" alt="شباتي بيض" onerror="this.src='https://via.placeholder.com/300x200/32CD32/FFFFFF?text=شباتي+بيض'">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="egg_chapati">شباتي بيض</h5>
+                        <div class="card-price">25 TL</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('egg_chapati', 25)">
+                            <i class="fas fa-cart-plus me-2"></i>
+                            <span data-translate="add_to_cart">أضف إلى السلة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 menu-item fade-in" data-category="sandwiches">
+                <div class="menu-card">
+                    <img src="Images/kark-01 - Copy (40).png" alt="شباتي جبنة" onerror="this.src='https://via.placeholder.com/300x200/FFD700/FFFFFF?text=شباتي+جبنة'">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="cheese_chapati">شباتي جبنة</h5>
+                        <div class="card-price">30 TL</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('cheese_chapati', 30)">
+                            <i class="fas fa-cart-plus me-2"></i>
+                            <span data-translate="add_to_cart">أضف إلى السلة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 menu-item fade-in" data-category="sandwiches">
+                <div class="menu-card">
+                    <img src="Images/kark-01 - Copy (43).png" alt="شباتي فاهيتا" onerror="this.src='https://via.placeholder.com/300x200/FF4500/FFFFFF?text=شباتي+فاهيتا'">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="fajita_chapati">شباتي فاهيتا</h5>
+                        <div class="card-price">35 TL</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('fajita_chapati', 35)">
+                            <i class="fas fa-cart-plus me-2"></i>
+                            <span data-translate="add_to_cart">أضف إلى السلة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 menu-item fade-in" data-category="sandwiches">
+                <div class="menu-card">
+                    <img src="Images/kark-01 - Copy (52).png" alt="شباتي نوتيلا" onerror="this.src='https://via.placeholder.com/300x200/8B4513/FFFFFF?text=شباتي+نوتيلا'">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="nutella_chapati">شباتي نوتيلا</h5>
+                        <div class="card-price">30 TL</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('nutella_chapati', 30)">
+                            <i class="fas fa-cart-plus me-2"></i>
+                            <span data-translate="add_to_cart">أضف إلى السلة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desserts -->
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 menu-item fade-in" data-category="desserts">
+                <div class="menu-card">
+                    <img src="Images/kark-01 - Copy (54).png" alt="كنافة" onerror="this.src='https://via.placeholder.com/300x200/8B4513/FFFFFF?text=كنافة'">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="kanafeh">كنافة</h5>
+                        <div class="card-price">75 TL</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('kanafeh', 75)">
+                            <i class="fas fa-cart-plus me-2"></i>
+                            <span data-translate="add_to_cart">أضف إلى السلة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 menu-item fade-in" data-category="desserts">
+                <div class="menu-card">
+                    <img src="Images/kark-01 - Copy (58).png" alt="ليالي لبنان" onerror="this.src='https://via.placeholder.com/300x200/DC143C/FFFFFF?text=ليالي+لبنان'">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="layali_lebanon">ليالي لبنان</h5>
+                        <div class="card-price">60 TL</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('layali_lebanon', 60)">
+                            <i class="fas fa-cart-plus me-2"></i>
+                            <span data-translate="add_to_cart">أضف إلى السلة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 menu-item fade-in" data-category="desserts">
+                <div class="menu-card">
+                    <img src="Images/kark-01 - Copy (57).png" alt="كرات شكلاته" onerror="this.src='https://via.placeholder.com/300x200/D2691E/FFFFFF?text=كرات+شكلاته'">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="chocolate_balls">كرات شكلاته</h5>
+                        <div class="card-price">45 TL</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('chocolate_balls', 45)">
+                            <i class="fas fa-cart-plus me-2"></i>
+                            <span data-translate="add_to_cart">أضف إلى السلة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 menu-item fade-in" data-category="desserts">
+                <div class="menu-card">
+                    <img src="Images/kark-01 - Copy (60).png" alt="تمر" onerror="this.src='https://via.placeholder.com/300x200/D2B48C/FFFFFF?text=تمر'">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="half_kilo_dates">نصف كيلو تمر</h5>
+                        <div class="card-price">60 TL</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('half_kilo_dates', 60)">
+                            <i class="fas fa-cart-plus me-2"></i>
+                            <span data-translate="add_to_cart">أضف إلى السلة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Cart -->
+    <div class="floating-cart" onclick="toggleCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="cart-count" id="cartCount">0</div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3>
+                    <i class="fas fa-shopping-cart me-2"></i>
+                    <span data-translate="cart">السلة</span>
+                </h3>
+                <button class="btn-close" onclick="toggleCart()" aria-label="Close"></button>
+            </div>
+            
+            <div id="cartItems"></div>
+            
+            <div class="mt-3">
+                <div class="d-flex justify-content-between mb-2">
+                    <strong data-translate="total">المجموع:</strong>
+                    <strong id="totalPrice">0 TL</strong>
+                </div>
+                <button class="whatsapp-btn" onclick="sendWhatsAppOrder()">
+                    <i class="fab fa-whatsapp me-2"></i>
+                    <span data-translate="send_whatsapp">إرسال الطلب عبر الواتساب</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Translations
+        const translations = {
+            ar: {
+                restaurant_name: "مطعم المدينتين",
+                hot_drinks: "المشروبات الساخنة",
+                cold_drinks: "المشروبات الباردة",
+                sandwiches: "السندويشات",
+                desserts: "الحلويات",
+                all_items: "جميع الأطباق",
+                add_to_cart: "أضف إلى السلة",
+                cart: "السلة",
+                total: "المجموع:",
+                send_whatsapp: "إرسال الطلب عبر الواتساب",
+                currency: "TL",
+                small_karak: "شاي كرك صغير",
+                medium_karak: "شاي كرك وسط",
+                large_karak: "شاي كرك كبير",
+                orange_juice: "عصير برتقال طازج",
+                egg_chapati: "شباتي بيض",
+                kanafeh: "كنافة",
+                brad_karak: "براد كرك",
+                brad_arabic_coffee: "براد قهوة عربية 1.5",
+                nescafe: "نسكافيه",
+                hot_chocolate: "هوت شوكليت كبير",
+                mango_juice: "عصير مانجو طبيعي",
+                water: "ماء",
+                lemonade: "ليموناتا",
+                cheese_chapati: "شباتي جبنة",
+                fajita_chapati: "شباتي فاهيتا",
+                nutella_chapati: "شباتي نوتيلا",
+                layali_lebanon: "ليالي لبنان",
+                chocolate_balls: "كرات شكلاته",
+                half_kilo_dates: "نصف كيلو تمر"
+            },
+            en: {
+                restaurant_name: "Al Madinatyn Restaurant",
+                hot_drinks: "Hot Drinks",
+                cold_drinks: "Cold Drinks",
+                sandwiches: "Sandwiches",
+                desserts: "Desserts",
+                all_items: "All Items",
+                add_to_cart: "Add to Cart",
+                cart: "Cart",
+                total: "Total:",
+                send_whatsapp: "Send Order via WhatsApp",
+                currency: "TL",
+                small_karak: "Small Karak Tea",
+                medium_karak: "Medium Karak Tea",
+                large_karak: "Large Karak Tea",
+                orange_juice: "Fresh Orange Juice",
+                egg_chapati: "Egg Chapati",
+                kanafeh: "Kanafeh",
+                brad_karak: "Karak Pot",
+                brad_arabic_coffee: "Arabic Coffee Pot 1.5",
+                nescafe: "Nescafe",
+                hot_chocolate: "Large Hot Chocolate",
+                mango_juice: "Natural Mango Juice",
+                water: "Water",
+                lemonade: "Lemonade",
+                cheese_chapati: "Cheese Chapati",
+                fajita_chapati: "Fajita Chapati",
+                nutella_chapati: "Nutella Chapati",
+                layali_lebanon: "Layali Lebanon",
+                chocolate_balls: "Chocolate Balls",
+                half_kilo_dates: "Half Kilo Dates"
+            },
+            tr: {
+                restaurant_name: "Al Madinatyn Restoranı",
+                hot_drinks: "Sıcak İçecekler",
+                cold_drinks: "Soğuk İçecekler",
+                sandwiches: "Sandviçler",
+                desserts: "Tatlılar",
+                all_items: "Tüm Ürünler",
+                add_to_cart: "Sepete Ekle",
+                cart: "Sepet",
+                total: "Toplam:",
+                send_whatsapp: "WhatsApp ile Sipariş Gönder",
+                currency: "TL",
+                small_karak: "Küçük Karak Çayı",
+                medium_karak: "Orta Karak Çayı",
+                large_karak: "Büyük Karak Çayı",
+                orange_juice: "Taze Portakal Suyu",
+                egg_chapati: "Yumurtalı Chapati",
+                kanafeh: "Kanafeh",
+                brad_karak: "Karak Demliği",
+                brad_arabic_coffee: "Arap Kahvesi Demliği 1.5",
+                nescafe: "Nescafe",
+                hot_chocolate: "Büyük Sıcak Çikolata",
+                mango_juice: "Doğal Mango Suyu",
+                water: "Su",
+                lemonade: "Limonata",
+                cheese_chapati: "Peynirli Chapati",
+                fajita_chapati: "Fajita Chapati",
+                nutella_chapati: "Nutella Chapati",
+                layali_lebanon: "Layali Lebanon",
+                chocolate_balls: "Çikolata Topları",
+                half_kilo_dates: "Yarım Kilo Hurma"
+            }
+        };
+
+        // Current language
+        let currentLanguage = 'ar';
+
+        // Cart functionality
+        let cart = [];
+        let cartCount = 0;
+        let totalPrice = 0;
+
+        // Language functions
+        function toggleLanguageDropdown() {
+            const dropdown = document.getElementById('languageDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update body classes
+            document.body.classList.remove('english', 'turkish');
+            if (lang === 'en') {
+                document.body.classList.add('english');
+                document.documentElement.setAttribute('dir', 'ltr');
+            } else if (lang === 'tr') {
+                document.body.classList.add('turkish');
+                document.documentElement.setAttribute('dir', 'ltr');
+            } else {
+                document.documentElement.setAttribute('dir', 'rtl');
+            }
+            
+            // Update language display
+            const langNames = { ar: 'العربية', en: 'English', tr: 'Türkçe' };
+            document.getElementById('currentLanguage').textContent = langNames[lang];
+            
+            // Update active language option
+            document.querySelectorAll('.language-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            document.querySelector(`[onclick="changeLanguage('${lang}')"]`).classList.add('active');
+            
+            // Translate all elements
+            translatePage();
+            
+            // Close dropdown
+            document.getElementById('languageDropdown').classList.remove('show');
+            
+            // Save language preference
+            localStorage.setItem('language', lang);
+        }
+
+        function translatePage() {
+            const elements = document.querySelectorAll('[data-translate]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[currentLanguage][key]) {
+                    element.textContent = translations[currentLanguage][key];
+                }
+            });
+        }
+
+        // Add to cart function
+        function addToCart(itemName, price) {
+            const existingItem = cart.find(item => item.name === itemName);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+                existingItem.total = existingItem.quantity * existingItem.price;
+            } else {
+                cart.push({
+                    name: itemName,
+                    price: price,
+                    quantity: 1,
+                    total: price
+                });
+            }
+            
+            updateCartDisplay();
+            showAddToCartAnimation();
+        }
+
+        // Update cart display
+        function updateCartDisplay() {
+            cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            totalPrice = cart.reduce((sum, item) => sum + item.total, 0);
+            
+            document.getElementById('cartCount').textContent = cartCount;
+            
+            const currencyText = translations[currentLanguage].currency;
+            document.getElementById('totalPrice').textContent = totalPrice + ' ' + currencyText;
+            
+            const cartItemsContainer = document.getElementById('cartItems');
+            cartItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="text-center text-muted">السلة فارغة</p>';
+                return;
+            }
+            
+            cart.forEach((item, index) => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                const translatedName = translations[currentLanguage][item.name] || item.name;
+                cartItem.innerHTML = `
+                    <div>
+                        <h6>${translatedName}</h6>
+                        <small class="text-muted">${item.price} ${currencyText} × ${item.quantity}</small>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div class="quantity-controls me-3">
+                            <button class="quantity-btn" onclick="changeQuantity(${index}, -1)">-</button>
+                            <span class="mx-2">${item.quantity}</span>
+                            <button class="quantity-btn" onclick="changeQuantity(${index}, 1)">+</button>
+                        </div>
+                        <strong>${item.total} ${currencyText}</strong>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+        }
+
+        // Change quantity
+        function changeQuantity(index, change) {
+            const item = cart[index];
+            item.quantity += change;
+            
+            if (item.quantity <= 0) {
+                cart.splice(index, 1);
+            } else {
+                item.total = item.quantity * item.price;
+            }
+            
+            updateCartDisplay();
+        }
+
+        // Toggle cart modal
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.toggle('show');
+        }
+
+        // Category filtering
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const category = this.getAttribute('data-category');
+                const menuItems = document.querySelectorAll('.menu-item');
+                
+                menuItems.forEach(item => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                        item.classList.add('fade-in');
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Theme toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const themeIcon = document.querySelector('.theme-toggle i');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Send WhatsApp order
+        function sendWhatsAppOrder() {
+            if (cart.length === 0) {
+                alert('السلة فارغة!');
+                return;
+            }
+            
+            const currencyText = translations[currentLanguage].currency;
+            let message = `${translations[currentLanguage].restaurant_name} - طلب جديد:\n\n`;
+            
+            cart.forEach(item => {
+                message += `${item.name} - ${item.quantity} × ${item.price} ${currencyText} = ${item.total} ${currencyText}\n`;
+            });
+            
+            message += `\n${translations[currentLanguage].total} ${totalPrice} ${currencyText}`;
+            
+            const phoneNumber = '905385818771'; // Replace with actual phone number
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Show add to cart animation
+        function showAddToCartAnimation() {
+            const cartIcon = document.querySelector('.floating-cart');
+            cartIcon.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                cartIcon.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.language-switcher')) {
+                document.getElementById('languageDropdown').classList.remove('show');
+            }
+        });
+
+        // Close cart when clicking outside
+        document.getElementById('cartModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                toggleCart();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('cartModal');
+                if (modal.classList.contains('show')) {
+                    toggleCart();
+                }
+                document.getElementById('languageDropdown').classList.remove('show');
+            }
+        });
+
+        // Load saved preferences
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            const savedLanguage = localStorage.getItem('language');
+            
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.querySelector('.theme-toggle i').className = 'fas fa-sun';
+            }
+            
+            if (savedLanguage && savedLanguage !== 'ar') {
+                changeLanguage(savedLanguage);
+            }
+        });
+    </script>
+</body>
+</html>
